@@ -4,9 +4,9 @@ from airtable import Airtable
 import os
 
 
-AT = Airtable(os.environ.get('AIRTABLE_MOVIESTABLE_BASE_ID'),
+AT = Airtable(('app06x7XMQJka7AiU'),
               'Movies',
-              api_key=os.environ.get('AIRTABLE_API_KEY'))
+              api_key=('key6fZJRtUpFfPV9M'))
 
 # Create your views here.
 def home_page(request):
@@ -14,7 +14,6 @@ def home_page(request):
     search_result = AT.get_all(formula="FIND('" + user_query.lower() + "', LOWER({Name}))")
     stuff_for_frontend = {'search_result': search_result}
     return render(request, 'movies/movies_stuff.html', stuff_for_frontend)
-
 
 def create(request):
     if request.method == 'POST':
