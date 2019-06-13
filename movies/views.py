@@ -4,9 +4,14 @@ from airtable import Airtable
 import os
 
 
-AT = Airtable(os.environ.get('AIRTABLE_MOVIESTABLE_BASE_ID'),
-              'Movies',
-              api_key=os.environ.get('AIRTABLE_API_KEY'))
+AT = Airtable(('app06x7XMQJka7AiU'),
+    'Movies',
+    api_key=('key6fZJRtUpFfPV9M'))
+
+
+# AT = Airtable(os.environ.get('AIRTABLE_MOVIESTABLE_BASE_ID'),
+#               'Movies',
+#               api_key=os.environ.get('AIRTABLE_API_KEY'))
 
 # Create your views here.
 def home_page(request):
@@ -27,9 +32,9 @@ def create(request):
 
         try:
             response = AT.insert(data)
-            messages.success(request, 'New movie added: {}'.format(response['fields'].get('Name')))
+            messages.success(request, 'New Comedian added: {}'.format(response['fields'].get('Name')))
         except Exception as e:
-            messages.warning(request, 'Got an error when trying to create new movie: {}'.format(e))
+            messages.warning(request, 'Got an error when trying to create new comedian profile: {}'.format(e))
     return redirect('/')
 
 
@@ -43,16 +48,16 @@ def edit(request, movie_id):
         }
         try:
         	response = AT.update(movie_id, data)
-        	messages.success(request, 'Updated movie: {}'.format(response['fields'].get('Name')))
+        	messages.success(request, 'Updated Comedian\'s profile: {}'.format(response['fields'].get('Name')))
         except Exception as e:
-            messages.warning(request, 'Got an error when trying to update a movie: {}'.format(e))
+            messages.warning(request, 'Got an error when trying to update a comedian\'s profile: {}'.format(e))
     return redirect('/')
 
 def delete(request, movie_id):
     try:
         movie_name = AT.get(movie_id)['fields'].get('Name')
         response = AT.delete(movie_id)
-        messages.warning(request, 'Deleted movie: {}'.format(movie_name))
+        messages.warning(request, 'Deleted Comedian\'s profile: {}'.format(movie_name))
     except Exception as e:
-        messages.warning(request, 'Got an error when trying to delete a movie: {}'.format(e))
+        messages.warning(request, 'Got an error when trying to delete a Comedian\'s profile: {}'.format(e))
     return redirect('/')
