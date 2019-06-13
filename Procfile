@@ -1,0 +1,1 @@
+web: gunicorn fcappcpmovieapp.wsgi --log-file -
